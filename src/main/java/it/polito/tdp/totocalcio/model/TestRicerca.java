@@ -19,6 +19,7 @@ public class TestRicerca {
 		Ricerca r = new Ricerca() ;
 		
 		List<Risultato> risultati = r.cerca(pronostico) ;
+		//ho creato un pronostico e voglio delegare alla classe ricerca la ricerca dei risultati compatibili 
 		
 		System.out.println(risultati) ;
 	}

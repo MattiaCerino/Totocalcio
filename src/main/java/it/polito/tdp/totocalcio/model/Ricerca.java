@@ -25,54 +25,50 @@ public class Ricerca {
 	
 	}
 	
-	private void ricorsiva(List<RisultatoPartita> parziale, int livello) {
+	private void ricorsiva(List<RisultatoPartita> parziale, int livello) { // E' la funzione che fa la ricorsione 
 		
-		// caso terminale?
-		if(livello==N) {
+		// CASO TERMINALE? (SONO ARRIVATO AD UNA SOLUZIONE BANALE)
+		if(livello == N) {
 			// questa soluzione parziale è una soluzione completa
-			// System.out.println(parziale) ;
+			// System.out.println(parziale); 
 			this.soluzione.add(new Risultato(parziale)) ;
 		} else {
-			//caso generale
+			// CASO GENERALE
 			
-			// [ parziale da 0 a livello-1 ] [livello] [livello+1 in poi]
-			PronosticoPartita pp = pronostico.get(livello) ;
+			// 				GIA' DECISI					DA DECIDERE ORA 	DA DECIDERE CON UN'ALTRA ITERAZIONE
+			// [SOLUZIONE PARZIALE da 0 a LIVELLO-1]	[LIVELLO] 			[LIVELLO+1 in poi]
+			PronosticoPartita pp = pronostico.get(livello);
 			// pp sono i sotto-problemi da provare
 			
 			for(RisultatoPartita ris : pp.getRisultati()) {
-				// provo a mettere 'ris' nella posizione 'livello'
-				// della soluzione parziale
+				// provo a mettere 'ris' nella posizione "livello" della soluzione parziale
 
-				// costruzione soluzione parziale (sottoproblema) 
+				// Costruzione della SOLUZIONE PARZIALE(sottoproblema) 
 				parziale.add(ris) ;
-				// chiamata ricorsiva
-				ricorsiva(parziale, livello+1);
-				// backtracking
-				parziale.remove(parziale.size()-1) ;
 				
+				// CHIAMATA della FUNZIONE RICORSIVA - da ora in avanti le successive iterazioni dovranno mettere i livelli successivi
+				ricorsiva(parziale, livello+1);
+				
+				// BACKTRACKING - rimetto le cose a posto per far si che all'iterazione successiva del for io possa mettere l'altra opzione
+				parziale.remove(parziale.size()-1) ;		
 			}
-		}
-		
-		
+		}	
 	}
-
 }
 
 /*
- * Livello = numero di partita che sto considerando
- * le partite da a livello-1 sono già state decise
- * la partita di indice livello la devo decidere io
- * le partite da livello+1 in poi le decideranno le procedure ricorsive sottostanti
+ * LIVELLO della RICORSIONE = numero di partita che sto considerando
+ * Le partite da 0 a "livello-1" sono già state decise
+ * La partita di indice "livello" la devo decidere io
+ * Le partite da "livello+1" in poi le decideranno le procedure ricorsive sottostanti
  * 
- * Soluzione parziale: un elenco di RisultatoPartita di lunghezza pari
- * al livello. 
+ * SOLUZIONE PARZIALE: un elenco / lista / sequenza di RisultatoPartita di lunghezza pari al livello
  * 
- * Soluzione totale: ho N risultati
+ * SOLUZIONE TOTALE: ho N risultati
  * 
- * Condizione di terminazione: livello == N
+ * CONDIZIONE DI TERMINAZIONE: livello == N
  * 
- * Generazione delle soluzioni del livello: provando tutte i pronostici
- * definiti per quel livello.
+ * GENERAZIONE DELLE SOLUZIONI DI LIVELLO: provando tutte i pronostici definiti per quel livello
  * 
  */
 /*
